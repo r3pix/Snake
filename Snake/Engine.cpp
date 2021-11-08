@@ -1,4 +1,6 @@
 #include "Engine.h"
+#include "InputControl.h"
+#include "SnakeControl.h"
 
 
 const sf::Time Engine::TimePerFrame = seconds(1.f / 60.f);
@@ -13,11 +15,12 @@ Engine::Engine()
 
 	speed = 3;
 
-	directionCode = Direction::RIGHT;
+	directionCode = SnakeControl::Direction::RIGHT;
 	timeSinceLastMove = Time::Zero;
 
-	createSnake();
+	SnakeSegment::createSnake(snakeBody);
 }
+
 
 void Engine::draw()
 {
@@ -44,8 +47,8 @@ void Engine::run()
 		Time between = clock.restart();
 		timeSinceLastMove = timeSinceLastMove + between;
 
-		input();
-		updateDirection();
+		InputControl::input(window,directionQueue);
+		SnakeControl::updateDirection(snakeBody,directionQueue, speed, directionCode, timeSinceLastMove);
 		draw();
 	}
 }

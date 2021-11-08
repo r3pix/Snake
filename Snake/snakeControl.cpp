@@ -1,22 +1,8 @@
+#include "SnakeControl.h"
 #include "Engine.h"
 
 
-void Engine::createSnake()
-{
-	snakeBody.clear();
-	snakeBody.emplace_back(Vector2f(100, 100));
-	snakeBody[0].setColor(Color::Red);
-	snakeBody.emplace_back(Vector2f(80, 100));
-	snakeBody.emplace_back(Vector2f(60, 100));
-}
-
-void Engine::addSegment()
-{
-	Vector2f newPos = snakeBody[snakeBody.size() - 1].getPos();
-	snakeBody.emplace_back(Vector2f(newPos));
-}
-
-void Engine::updateDirection()
+void SnakeControl::updateDirection(vector<SnakeSegment> &snakeBody, deque<int> &directionQueue, int speed, int &directionCode, Time &timeSinceLastMove)
 {
 	if(timeSinceLastMove.asSeconds() >= seconds(1.f/ float(speed)).asSeconds())
 	{

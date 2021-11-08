@@ -146,13 +146,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h" />
+    <ClInclude Include="InputControl.h" />
+    <ClInclude Include="SnakeControl.h" />
     <ClInclude Include="SnakeSegment.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="inputControl.cpp" />
+    <ClCompile Include="InputControl.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="snakeControl.cpp" />
+    <ClCompile Include="SnakeControl.cpp" />
     <ClCompile Include="SnakeSegment.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

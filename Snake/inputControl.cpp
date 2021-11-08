@@ -1,6 +1,9 @@
-#include "Engine.h"
+#include "SnakeControl.h"
+#include "InputControl.h"
 
-void Engine::input()
+using namespace std;
+
+void InputControl::input(RenderWindow &window,  deque<int>&directionQueue)
 {
 	Event event{};
 
@@ -20,22 +23,22 @@ void Engine::input()
 
 			if (event.key.code == Keyboard::S)
 			{
-				addDirection(Direction::UP);
+				addDirection(SnakeControl::Direction::UP ,directionQueue);
 			}
 
 			else if (event.key.code == Keyboard::A)
 			{
-				addDirection(Direction::LEFT);
+				addDirection(SnakeControl::Direction::LEFT, directionQueue);
 			}
 
 			else if (event.key.code == Keyboard::W)
 			{
-				addDirection(Direction::DOWN);
+				addDirection(SnakeControl::Direction::DOWN, directionQueue);
 			}
 
 			else if (event.key.code == Keyboard::D)
 			{
-				addDirection(Direction::RIGHT);
+				addDirection(SnakeControl::Direction::RIGHT, directionQueue);
 			}
 
 		}
@@ -43,7 +46,7 @@ void Engine::input()
 	}
 }
 
-void Engine::addDirection(int newDirection)
+void InputControl::addDirection(int newDirection, deque<int> &directionQueue)
 {
 	if (directionQueue.empty())
 	{

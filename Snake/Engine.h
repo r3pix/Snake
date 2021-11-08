@@ -19,32 +19,19 @@ private:
 	static const Time TimePerFrame;
 	vector<SnakeSegment> snakeBody;
 	RectangleShape backgroud;
-
 	int directionCode;
 	int speed;
+	Time timeSinceLastMove;
+	
 	deque<int> directionQueue;
 
-	Time timeSinceLastMove;
+	
 
 public:
-	enum Direction
-	{
-		UP,
-		RIGHT,
-		DOWN,
-		LEFT
-	};
 
 	Engine();
-	void input();
 	void draw();
 	void run();
-
-	void createSnake();
-	void addSegment();
-
-	void addDirection(int newDirection);
-	void updateDirection();
 
 };
 
