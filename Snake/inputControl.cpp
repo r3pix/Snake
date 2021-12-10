@@ -1,9 +1,11 @@
 #include "SnakeControl.h"
 #include "InputControl.h"
 
+#include "Engine.h"
+
 using namespace std;
 
-void InputControl::input(RenderWindow &window,  deque<int>&directionQueue)
+void InputControl::input(RenderWindow &window,  deque<int>&directionQueue, int &currentGameState, int &lastGameState, Engine &engine)
 {
 	Event event{};
 
@@ -14,8 +16,23 @@ void InputControl::input(RenderWindow &window,  deque<int>&directionQueue)
 			window.close();
 		}
 
+
 		if (event.type == Event::KeyPressed)
 		{
+			if (event.key.code == Keyboard::P)
+			{
+				togglePause(currentGameState, lastGameState);
+			}
+
+
+			if(currentGameState == GameState::GAMEOVER)
+			{
+				if(event.key.code == Keyboard::R)
+				{
+					engine.startTheGame();
+				}
+			}
+
 			if (event.key.code == Keyboard::Escape)
 			{
 				window.close();
@@ -58,5 +75,19 @@ void InputControl::addDirection(int newDirection, deque<int> &directionQueue)
 		{
 			directionQueue.emplace_back(newDirection);
 		}
+	}
+}
+
+
+void InputControl::togglePause(int& currentGameState, int& lastGameState)
+{
+	if (currentGameState == GameState::RUNNING)
+	{
+		lastGameState = currentGameState;
+		currentGameState = GameState::PAUSED;
+	}
+	else if (currentGameState == GameState::PAUSED)
+	{
+		currentGameState = lastGameState;
 	}
 }

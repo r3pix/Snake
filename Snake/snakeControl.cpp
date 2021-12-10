@@ -1,8 +1,8 @@
 #include "SnakeControl.h"
 #include "Engine.h"
+#include "Apple.h"
 
-
-void SnakeControl::updateDirection(vector<SnakeSegment> &snakeBody, deque<int> &directionQueue, int speed, int &directionCode, Time &timeSinceLastMove)
+void SnakeControl::updateDirection(vector<SnakeSegment> &snakeBody, deque<int> &directionQueue, int speed, int &directionCode, Time &timeSinceLastMove, Apple &apple, int &sectionsToAdd, Vector2f resolution, int &currentGameState)
 {
 	if(timeSinceLastMove.asSeconds() >= seconds(1.f/ float(speed)).asSeconds())
 	{
@@ -46,6 +46,13 @@ void SnakeControl::updateDirection(vector<SnakeSegment> &snakeBody, deque<int> &
 			directionQueue.pop_front();
 		}
 
+
+		if(sectionsToAdd)
+		{
+			SnakeSegment::addSegment(snakeBody);
+			sectionsToAdd--;
+		}
+
 		//head
 		switch (directionCode)
 		{
@@ -73,10 +80,29 @@ void SnakeControl::updateDirection(vector<SnakeSegment> &snakeBody, deque<int> &
 			snakeBody[i].setPos(lastSegmentPosition);
 			lastSegmentPosition = thisSegmentPositon;
 		}
-
+		//cheak apple eaten
 		for(auto &s : snakeBody)
 		{
 			s.updatePos();
+			if(snakeBody[0].getShape().getGlobalBounds().intersects(apple.getSprite().getGlobalBounds()))
+			{
+
+				sectionsToAdd += 1;
+				//if(sectionsToAdd / 4 == 0)
+				//{
+					speed++;
+				//}
+				Apple::moveApple(apple, snakeBody, resolution);
+			}
+		}
+
+		//check body collision
+		for(int s=1; s<snakeBody.size(); s++)
+		{
+			if(snakeBody[0].getShape().getGlobalBounds().intersects(snakeBody[s].getShape().getGlobalBounds()))
+			{
+				currentGameState = GameState::GAMEOVER;
+			}
 		}
 
 		timeSinceLastMove = Time::Zero;

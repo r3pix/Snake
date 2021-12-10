@@ -4,6 +4,7 @@
 #include "SnakeSegment.h"
 #include <vector>
 #include <deque>
+#include "Apple.h"
 
 
 using namespace sf;
@@ -24,14 +25,21 @@ private:
 	Time timeSinceLastMove;
 	
 	deque<int> directionQueue;
+	int sectionsToAdd;
 
-	
+	int currentGameState;
+	int lastGameState;
+
+	Apple apple;
 
 public:
+	enum  GameState {RUNNING, PAUSED, GAMEOVER};
 
 	Engine();
 	void draw();
 	void run();
-
+	void startTheGame();
+	void moveApple();
+	static void togglePause(int& currentGameState, int& lastGameState);
 };
 

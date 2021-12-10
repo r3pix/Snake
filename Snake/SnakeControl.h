@@ -2,6 +2,8 @@
 #include <deque>
 #include <vector>
 #include <SFML/System/Time.hpp>
+
+#include "Apple.h"
 #include "SnakeSegment.h"
 
 using namespace std;
@@ -13,7 +15,10 @@ private:
 	//int directionCode;
 
 public:
-	static void updateDirection(vector<SnakeSegment>& snakeBody, deque<int>& directionQueue, int speed, int &directionCode, Time &timeSinceLastMove);
+	static void updateDirection(vector<SnakeSegment>& snakeBody, deque<int>& directionQueue, int speed, int &directionCode, Time &timeSinceLastMove, 
+		Apple &apple, int &sectionsToAdd, Vector2f resolution,int& currentGameState);
+
+	enum  GameState { RUNNING, PAUSED, GAMEOVER };
 
 	enum Direction
 	{
