@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "SnakeSegment.h"
+#include "Wall.h"
 
 using namespace sf;
 
@@ -15,6 +16,6 @@ public:
 
 	void setPosition(Vector2f newPosition);
 	RectangleShape getSprite();
-	static void moveApple(Apple& apple, vector<SnakeSegment>& snakeBody, Vector2f resolution);
+	static void moveApple(Apple& apple, vector<SnakeSegment>& snakeBody, Vector2f resolution, vector<Wall>);
 };
 

@@ -2,7 +2,7 @@
 #include "Engine.h"
 #include "Apple.h"
 
-void SnakeControl::updateDirection(vector<SnakeSegment> &snakeBody, deque<int> &directionQueue, int speed, int &directionCode, Time &timeSinceLastMove, Apple &apple, int &sectionsToAdd, Vector2f resolution, int &currentGameState)
+void SnakeControl::updateDirection(vector<SnakeSegment> &snakeBody, deque<int> &directionQueue, int speed, int &directionCode, Time &timeSinceLastMove, Apple &apple, int &sectionsToAdd, Vector2f resolution, int &currentGameState,vector<Wall> walls)
 {
 	if(timeSinceLastMove.asSeconds() >= seconds(1.f/ float(speed)).asSeconds())
 	{
@@ -92,7 +92,7 @@ void SnakeControl::updateDirection(vector<SnakeSegment> &snakeBody, deque<int> &
 				//{
 					speed++;
 				//}
-				Apple::moveApple(apple, snakeBody, resolution);
+				Apple::moveApple(apple, snakeBody, resolution,walls);
 			}
 		}
 
@@ -100,6 +100,14 @@ void SnakeControl::updateDirection(vector<SnakeSegment> &snakeBody, deque<int> &
 		for(int s=1; s<snakeBody.size(); s++)
 		{
 			if(snakeBody[0].getShape().getGlobalBounds().intersects(snakeBody[s].getShape().getGlobalBounds()))
+			{
+				currentGameState = GameState::GAMEOVER;
+			}
+		}
+
+		for(auto &w:walls)
+		{
+			if(snakeBody[0].getShape().getGlobalBounds().intersects(w.getShape().getGlobalBounds()))
 			{
 				currentGameState = GameState::GAMEOVER;
 			}

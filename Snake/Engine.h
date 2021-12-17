@@ -5,7 +5,8 @@
 #include <vector>
 #include <deque>
 #include "Apple.h"
-
+#include "Wall.h"
+#include <fstream>
 
 using namespace sf;
 using namespace std;
@@ -32,6 +33,11 @@ private:
 
 	Apple apple;
 
+	vector<Wall> walls;
+	int currentLevel;
+	int maxLexels;
+	vector<string> levels;
+
 public:
 	enum  GameState {RUNNING, PAUSED, GAMEOVER};
 
@@ -41,5 +47,8 @@ public:
 	void startTheGame();
 	void moveApple();
 	static void togglePause(int& currentGameState, int& lastGameState);
+
+	void checkLevelFiles();
+	void loadLevel(int levelNumber);
 };
 

@@ -16,7 +16,7 @@ private:
 
 public:
 	static void updateDirection(vector<SnakeSegment>& snakeBody, deque<int>& directionQueue, int speed, int &directionCode, Time &timeSinceLastMove, 
-		Apple &apple, int &sectionsToAdd, Vector2f resolution,int& currentGameState);
+		Apple &apple, int &sectionsToAdd, Vector2f resolution,int& currentGameState,vector<Wall>walls);
 
 	enum  GameState { RUNNING, PAUSED, GAMEOVER };
 

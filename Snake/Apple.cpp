@@ -22,7 +22,7 @@ RectangleShape Apple::getSprite()
 	return sprite;
 }
 
-void Apple::moveApple(Apple& apple, vector<SnakeSegment> &snakeBody, Vector2f resolution)
+void Apple::moveApple(Apple& apple, vector<SnakeSegment> &snakeBody, Vector2f resolution, vector<Wall>walls)
 {
 	Vector2f appleResolution = Vector2f(resolution.x / 15 - 2, resolution.y / 15 - 2);
 	Vector2f newLocation;
@@ -41,7 +41,15 @@ void Apple::moveApple(Apple& apple, vector<SnakeSegment> &snakeBody, Vector2f re
 				isLocationFine = false;
 				break;
 			}
+		}
 
+		for(auto &w:walls)
+		{
+			if(w.getShape().getGlobalBounds().intersects(Rect<float>(newLocation.x, newLocation.y, 20, 20)))
+			{
+				isLocationFine = false;
+				break;
+			}
 		}
 	} while (!isLocationFine);
 

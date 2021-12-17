@@ -150,6 +150,7 @@
     <ClInclude Include="InputControl.h" />
     <ClInclude Include="SnakeControl.h" />
     <ClInclude Include="SnakeSegment.h" />
+    <ClInclude Include="Wall.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Apple.cpp" />
@@ -158,6 +159,11 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SnakeControl.cpp" />
     <ClCompile Include="SnakeSegment.cpp" />
+    <ClCompile Include="Wall.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="level1.txt" />
+    <Text Include="levels.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

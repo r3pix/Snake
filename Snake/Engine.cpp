@@ -12,6 +12,8 @@ Engine::Engine()
 	window.setFramerateLimit(fps);
 	backgroud.setSize(Vector2f(800, 600));
 	backgroud.setFillColor(Color(169,169,169));
+	maxLexels = 0;
+	checkLevelFiles();
 
 	startTheGame();
 
@@ -24,9 +26,10 @@ void Engine::startTheGame()
 	directionCode = SnakeControl::Direction::RIGHT;
 	timeSinceLastMove = Time::Zero;
 	directionQueue.clear();
-
+	currentLevel = 1;
+	loadLevel(currentLevel);
 	SnakeSegment::createSnake(snakeBody);
-	Apple::moveApple(apple, snakeBody, resolution);
+	Apple::moveApple(apple, snakeBody, resolution, walls);
 	currentGameState = GameState::RUNNING;
 	lastGameState = currentGameState;
 }
@@ -37,6 +40,11 @@ void Engine::draw()
 	window.clear();
 	window.draw(backgroud);
 	//window.clear(Color::Black);
+	for(auto &w:walls)
+	{
+		window.draw(w.getShape());
+	}
+
 	window.draw(apple.getSprite());
 
 	for(auto &s: snakeBody)
@@ -46,6 +54,47 @@ void Engine::draw()
 
 	window.display();
 }
+
+void Engine::checkLevelFiles()
+{
+	ifstream levelsManifest("levels.txt");
+
+	ifstream testFile;
+	for(string manifestLine; getline(levelsManifest,manifestLine);)
+	{
+		testFile.open(manifestLine);
+		if(testFile.is_open())
+		{
+			levels.emplace_back(manifestLine);
+			testFile.close();
+			maxLexels++;
+		}
+	}
+}
+
+void Engine::loadLevel(int levelNumber)
+{
+	string levelFile = levels[levelNumber - 1];
+	ifstream level(levelFile);
+	string line;
+	if(level.is_open())
+	{
+		for(int y=0; y<30; y++)
+		{
+			getline(level, line);
+			for(int x=0; x<40; x++)
+			{
+				if(line[x]=='x')
+				{
+					walls.emplace_back(Wall(Vector2f(x * 20, y * 20), Vector2f(20, 20)));
+				}
+			}
+		}
+	}
+	level.close();
+}
+
+
 /*
 void Engine::moveApple()
 {
@@ -99,7 +148,7 @@ void Engine::run()
 		timeSinceLastMove = timeSinceLastMove + between;
 
 		InputControl::input(window,directionQueue,currentGameState,lastGameState,*this);
-		SnakeControl::updateDirection(snakeBody,directionQueue, speed, directionCode, timeSinceLastMove, apple, sectionsToAdd, resolution, currentGameState);
+		SnakeControl::updateDirection(snakeBody,directionQueue, speed, directionCode, timeSinceLastMove, apple, sectionsToAdd, resolution, currentGameState,walls);
 		draw();
 	}
 }
