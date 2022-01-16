@@ -64,5 +64,19 @@
     <Text Include="levels.txt">
       <Filter>Pliki zasobów</Filter>
     </Text>
+    <Text Include="level2.txt">
+      <Filter>Pliki zasobów</Filter>
+    </Text>
+    <Text Include="level3.txt">
+      <Filter>Pliki zasobów</Filter>
+    </Text>
+    <Text Include="level4.txt">
+      <Filter>Pliki zasobów</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Deargod.otf">
+      <Filter>Pliki zasobów</Filter>
+    </Font>
   </ItemGroup>
 </Project>

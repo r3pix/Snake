@@ -2,7 +2,8 @@
 #include "Engine.h"
 #include "Apple.h"
 
-void SnakeControl::updateDirection(vector<SnakeSegment> &snakeBody, deque<int> &directionQueue, int speed, int &directionCode, Time &timeSinceLastMove, Apple &apple, int &sectionsToAdd, Vector2f resolution, int &currentGameState,vector<Wall> walls)
+void SnakeControl::updateDirection(vector<SnakeSegment> &snakeBody, deque<int> &directionQueue, int speed, int &directionCode, Time &timeSinceLastMove, 
+	Apple &apple, int &sectionsToAdd, Vector2f resolution, int &currentGameState,vector<Wall> walls, int &applesTotal, int &applesEaten, unsigned long long& score, Engine& engine)
 {
 	if(timeSinceLastMove.asSeconds() >= seconds(1.f/ float(speed)).asSeconds())
 	{
@@ -46,6 +47,7 @@ void SnakeControl::updateDirection(vector<SnakeSegment> &snakeBody, deque<int> &
 			directionQueue.pop_front();
 		}
 
+		score = (score + 1) + (applesTotal+1);
 
 		if(sectionsToAdd)
 		{
@@ -86,13 +88,29 @@ void SnakeControl::updateDirection(vector<SnakeSegment> &snakeBody, deque<int> &
 			s.updatePos();
 			if(snakeBody[0].getShape().getGlobalBounds().intersects(apple.getSprite().getGlobalBounds()))
 			{
+				applesEaten += 1;
+				applesTotal += 1;
+				
+				bool beginNextLevel = false;
+				if(applesEaten >=5)
+				{
+					if(engine.currentLevel < engine.maxLexels)
+					{
+						beginNextLevel = true;
+						engine.beginNextLevel();
+					}
+				}
 
-				sectionsToAdd += 1;
-				//if(sectionsToAdd / 4 == 0)
-				//{
+				if(!beginNextLevel)
+				{
+					sectionsToAdd += 1;
+					//if(sectionsToAdd / 4 == 0)
+					//{
 					speed++;
-				//}
-				Apple::moveApple(apple, snakeBody, resolution,walls);
+					//}
+					Apple::moveApple(apple, snakeBody, resolution, walls);
+				}
+				
 			}
 		}
 

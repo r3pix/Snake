@@ -24,6 +24,13 @@ private:
 	int directionCode;
 	int speed;
 	Time timeSinceLastMove;
+	Text gameOverText;
+	Text pressButtonText;
+	Text pauseText;
+	Text pauseBigText;
+
+	unsigned long long score;
+	Text scoreText;
 	
 	deque<int> directionQueue;
 	int sectionsToAdd;
@@ -32,23 +39,35 @@ private:
 	int lastGameState;
 
 	Apple apple;
+	int applesEaten;
+	int applesTotal;
+	Text applesText;
+	Text currentLevelText;
 
 	vector<Wall> walls;
-	int currentLevel;
-	int maxLexels;
+	
+	
 	vector<string> levels;
+
+	Font mainFont;
+	Text titleText;
 
 public:
 	enum  GameState {RUNNING, PAUSED, GAMEOVER};
+	int currentLevel;
+	int maxLexels;
 
 	Engine();
 	void draw();
 	void run();
+	void beginNextLevel();
 	void startTheGame();
 	void moveApple();
 	static void togglePause(int& currentGameState, int& lastGameState);
 
 	void checkLevelFiles();
 	void loadLevel(int levelNumber);
+
+	static void setupText(Text* textItem, const Font& font, const String& value, int size, Color color);
 };
 
