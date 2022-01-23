@@ -10,22 +10,22 @@ using namespace sf;
 class SnakeSegment
 {
 private:
-	Vector2f pos;
+	Vector2f pos;	// deklaracja zmiennej odpowiedzialnej za pozycje weza
 	RectangleShape segment;
 
 public:
 
 	SnakeSegment(Vector2f initPos);
-	static void createSnake(vector<SnakeSegment>& snakeBody);
-	static void addSegment(vector<SnakeSegment>& snakeBody);
+	static void createSnake(vector<SnakeSegment>& snakeBody);	// funkcja tworzaca weza
+	static void addSegment(vector<SnakeSegment>& snakeBody);	// funkcja przedluzajaca weza
 
-	Vector2f getPos();
-	void setPos(Vector2f pos);
+	Vector2f getPos();	// getter pozycji weza na mapie
+	void setPos(Vector2f pos);	// setter pozycji
 
-	RectangleShape getShape();
+	RectangleShape getShape();	// funkcja rysujaca weza
 
-	void updatePos();
+	void updatePos();	// funkcja modyfikujaca polozenie weza
 
-	void setColor(Color);
+	void setColor(Color);	// setter koloru weza
 };
 

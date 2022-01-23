@@ -16,12 +16,13 @@ private:
 	//int directionCode;
 
 public:
+	// funkcja zmieniajaca kierunek poruszania sie weza
 	static void updateDirection(vector<SnakeSegment>& snakeBody, deque<int>& directionQueue, int speed, int &directionCode, Time &timeSinceLastMove, 
 		Apple &apple, int &sectionsToAdd, Vector2f resolution,int& currentGameState,vector<Wall>walls, int &applesTotal, int& applesEaten, unsigned long long &score, Engine& engine);
 
-	enum  GameState { RUNNING, PAUSED, GAMEOVER };
+	enum  GameState { RUNNING, PAUSED, GAMEOVER };	// enum z wszystkimi mnozliwymi stanami gry
 
-	enum Direction
+	enum Direction	// enum z wszystkimi mozliwymi kierunkami porusznaia sie weza
 	{
 		UP,
 		RIGHT,

@@ -7,11 +7,11 @@ using namespace sf;
 class Wall
 {
 private:
-	RectangleShape wallShape;
+	RectangleShape wallShape;	// obiekt ksztaltu sciany
 
 public:
 	Wall(Vector2f position, Vector2f size);
 
-	RectangleShape getShape();
+	RectangleShape getShape();	// getter ksztaltu scian
 };
 

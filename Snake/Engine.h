@@ -28,8 +28,10 @@ private:
 	Text pressButtonText;
 	Text pauseText;
 	Text pauseBigText;
+	Text unstartedBigText;
+	Text unstartedText;
 
-	unsigned long long score;
+	unsigned long long score;	// deklaracja wyniku
 	Text scoreText;
 	
 	deque<int> directionQueue;
@@ -38,9 +40,9 @@ private:
 	int currentGameState;
 	int lastGameState;
 
-	Apple apple;
-	int applesEaten;
-	int applesTotal;
+	Apple apple;	// stworzenie nowego obiektu klasy Apple
+	int applesEaten;	// deklaracja licznika zjedzonych jablek
+	int applesTotal;	// deklaracja licznika wszystkich jablek jakie sie pojawily podczas rozgrywki
 	Text applesText;
 	Text currentLevelText;
 
@@ -53,7 +55,7 @@ private:
 	Text titleText;
 
 public:
-	enum  GameState {RUNNING, PAUSED, GAMEOVER};
+	enum  GameState {RUNNING, PAUSED, GAMEOVER,UNSTARTED};
 	int currentLevel;
 	int maxLexels;
 
